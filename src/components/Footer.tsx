@@ -1,4 +1,4 @@
-import { Github, Linkedin, Mail, ArrowUp } from "lucide-react";
+import { Mail, ArrowUp } from "lucide-react";
 
 const Footer = () => {
   const scrollToTop = () => {
@@ -28,24 +28,6 @@ const Footer = () => {
                 Building scalable applications with 2.5+ years of experience.
               </p>
               <div className="flex items-center gap-4">
-                <a
-                  href="https://github.com/sagarkaushik"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-muted-foreground hover:text-primary transition-colors"
-                  aria-label="GitHub"
-                >
-                  <Github size={24} />
-                </a>
-                <a
-                  href="https://linkedin.com/in/sagarkaushik"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-muted-foreground hover:text-primary transition-colors"
-                  aria-label="LinkedIn"
-                >
-                  <Linkedin size={24} />
-                </a>
                 <a
                   href="mailto:sagarkaushikme@gmail.com"
                   className="text-muted-foreground hover:text-primary transition-colors"

@@ -1,4 +1,4 @@
-import { ArrowRight, Github, Linkedin, Mail } from "lucide-react";
+import { ArrowRight, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import heroBg from "@/assets/hero-bg.jpg";
 
@@ -60,24 +60,6 @@ const Hero = () => {
           </div>
 
           <div className="flex items-center justify-center gap-6 pt-8">
-            <a
-              href="https://github.com/sagarkaushik"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-muted-foreground hover:text-primary transition-colors"
-              aria-label="GitHub"
-            >
-              <Github size={28} />
-            </a>
-            <a
-              href="https://linkedin.com/in/sagarkaushik"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-muted-foreground hover:text-primary transition-colors"
-              aria-label="LinkedIn"
-            >
-              <Linkedin size={28} />
-            </a>
             <a
               href="mailto:sagarkaushikme@gmail.com"
               className="text-muted-foreground hover:text-primary transition-colors"
