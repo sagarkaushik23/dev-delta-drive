@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -6,8 +6,14 @@ import { Textarea } from "@/components/ui/textarea";
 import { Mail, Phone, MapPin, Send } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
+// EmailJS configuration from environment variables (set in .env.local)
+const EMAILJS_USER_ID = (import.meta as any).env.VITE_EMAILJS_USER_ID as string;
+const EMAILJS_SERVICE_ID = (import.meta as any).env.VITE_EMAILJS_SERVICE_ID as string;
+const EMAILJS_TEMPLATE_ID = (import.meta as any).env.VITE_EMAILJS_TEMPLATE_ID as string;
+
 const Contact = () => {
   const { toast } = useToast();
+  const formRef = useRef<HTMLFormElement | null>(null);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -16,19 +22,66 @@ const Contact = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  // Initialize EmailJS on mount using User ID from env
+  useEffect(() => {
+    try {
+      const emailjs = (window as any).emailjs;
+      if (emailjs && typeof emailjs.init === "function") {
+        if (!EMAILJS_USER_ID) {
+          console.warn("[EmailJS] Missing VITE_EMAILJS_USER_ID env variable");
+          return;
+        }
+        emailjs.init(EMAILJS_USER_ID);
+        console.log("[EmailJS] Initialized via React with env User ID");
+      }
+    } catch (err) {
+      console.error("[EmailJS] Initialization error", err);
+    }
+  }, []);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    try {
+      const emailjs = (window as any).emailjs;
 
-    // Simulate form submission
-    setTimeout(() => {
-      toast({
-        title: "Message Sent!",
-        description: "Thank you for reaching out. I'll get back to you within 24 hours.",
+      if (!emailjs) {
+        console.error("[EmailJS] SDK not found on window. Make sure the CDN script is loaded in index.html");
+        throw new Error("EmailJS SDK not loaded");
+      }
+
+      if (!EMAILJS_SERVICE_ID || !EMAILJS_TEMPLATE_ID) {
+        console.error("[EmailJS] Missing Service ID or Template ID from env");
+        throw new Error("EmailJS IDs not configured");
+      }
+
+      // Send the form using EmailJS sendForm API
+      // This sends all inputs with name attributes in the form
+      await emailjs.sendForm(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, formRef.current);
+
+      console.log("[EmailJS] Message sent successfully", {
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
       });
+
+      toast({
+        title: "Your message has been sent successfully! I'll get back to you soon.",
+      });
+
+      // Clear form UI and state
       setFormData({ name: "", email: "", phone: "", message: "" });
+      if (formRef.current) {
+        formRef.current.reset();
+      }
+    } catch (error) {
+      console.error("[EmailJS] Failed to send message", error);
+      toast({
+        title: "Failed to send message. Please try again later.",
+      });
+    } finally {
       setIsSubmitting(false);
-    }, 1000);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -104,7 +157,7 @@ const Contact = () => {
             </div>
 
             <Card className="md:col-span-2 p-8 bg-card border-border animate-fade-in">
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid sm:grid-cols-2 gap-6">
                   <div>
                     <label htmlFor="name" className="block text-sm font-medium text-foreground mb-2">
