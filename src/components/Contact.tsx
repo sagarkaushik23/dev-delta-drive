@@ -6,6 +6,10 @@ import { Textarea } from "@/components/ui/textarea";
 import { Loader2, Mail, Phone, MapPin, Send } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
+const WEB3FORMS_ENDPOINT =
+  (import.meta.env.VITE_WEB3FORMS_ENDPOINT as string | undefined) || "https://api.web3forms.com/submit";
+const WEB3FORMS_ACCESS_KEY = (import.meta.env.VITE_WEB3FORMS_ACCESS_KEY as string | undefined) || "";
+
 
 const initialFormState = {
   name: "",
@@ -54,6 +58,13 @@ const Contact = () => {
       return;
     }
 
+    if (!WEB3FORMS_ACCESS_KEY) {
+      const message = "Contact form is temporarily unavailable. Please email me directly.";
+      setStatus({ type: "error", message });
+      toast({ title: message });
+      return;
+    }
+
     setIsSubmitting(true);
     try {
       const submissionData = new FormData(formRef.current);
@@ -69,9 +80,9 @@ const Contact = () => {
       submissionData.set("email", trimmedEmail.toLowerCase());
       submissionData.set("message", trimmedMessage);
       submissionData.set("subject", `New Portfolio Contact - ${trimmedName}`);
-      submissionData.set("access_key", process.env.WEB3FORMS_ACCESS_KEY);
+      submissionData.set("access_key", WEB3FORMS_ACCESS_KEY);
 
-      const response = await fetch(process.env.WEB3FORMS_ENDPOINT,{
+      const response = await fetch(WEB3FORMS_ENDPOINT, {
         method: "POST",
         body: submissionData,
         headers: {
@@ -185,11 +196,11 @@ const Contact = () => {
               <form
                 ref={formRef}
                 onSubmit={handleSubmit}
-                action={WEB3FORMS_ENDPOINT}
+            action={WEB3FORMS_ENDPOINT}
                 method="POST"
                 className="space-y-6"
               >
-                <input type="hidden" name="access_key" value={WEB3FORMS_ACCESS_KEY} />
+            <input type="hidden" name="access_key" value={WEB3FORMS_ACCESS_KEY} />
                 <input type="hidden" name="subject" value={`New Portfolio Contact - ${formData.name || "Visitor"}`} />
                 <div className="hidden" aria-hidden="true">
                   <label htmlFor="botcheck" className="sr-only">
