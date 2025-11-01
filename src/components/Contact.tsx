@@ -1,84 +1,109 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Mail, Phone, MapPin, Send } from "lucide-react";
+import { Loader2, Mail, Phone, MapPin, Send } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
-// EmailJS configuration from environment variables (set in .env.local)
-const EMAILJS_USER_ID = (import.meta as any).env.VITE_EMAILJS_USER_ID as string;
-const EMAILJS_SERVICE_ID = (import.meta as any).env.VITE_EMAILJS_SERVICE_ID as string;
-const EMAILJS_TEMPLATE_ID = (import.meta as any).env.VITE_EMAILJS_TEMPLATE_ID as string;
+
+const initialFormState = {
+  name: "",
+  email: "",
+  phone: "",
+  message: "",
+};
+
+type SubmissionStatus = {
+  type: "idle" | "success" | "error";
+  message: string;
+};
 
 const Contact = () => {
   const { toast } = useToast();
   const formRef = useRef<HTMLFormElement | null>(null);
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    message: "",
-  });
+  const [formData, setFormData] = useState(initialFormState);
   const [isSubmitting, setIsSubmitting] = useState(false);
-
-  // Initialize EmailJS on mount using User ID from env
-  useEffect(() => {
-    try {
-      const emailjs = (window as any).emailjs;
-      if (emailjs && typeof emailjs.init === "function") {
-        if (!EMAILJS_USER_ID) {
-          console.warn("[EmailJS] Missing VITE_EMAILJS_USER_ID env variable");
-          return;
-        }
-        emailjs.init(EMAILJS_USER_ID);
-        console.log("[EmailJS] Initialized via React with env User ID");
-      }
-    } catch (err) {
-      console.error("[EmailJS] Initialization error", err);
-    }
-  }, []);
+  const [status, setStatus] = useState<SubmissionStatus>({ type: "idle", message: "" });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setStatus({ type: "idle", message: "" });
+
+    const trimmedName = formData.name.trim();
+    const trimmedEmail = formData.email.trim();
+    const trimmedMessage = formData.message.trim();
+
+    if (!trimmedName || !trimmedEmail || !trimmedMessage) {
+      const message = "Please fill out your name, email, and project details before submitting.";
+      setStatus({ type: "error", message });
+      toast({ title: message });
+      return;
+    }
+
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(trimmedEmail)) {
+      const message = "Please enter a valid email address.";
+      setStatus({ type: "error", message });
+      toast({ title: message });
+      return;
+    }
+
+    if (!formRef.current) {
+      console.error("[Web3Forms] Form reference is not available.");
+      return;
+    }
+
     setIsSubmitting(true);
     try {
-      const emailjs = (window as any).emailjs;
+      const submissionData = new FormData(formRef.current);
+      const botcheck = submissionData.get("botcheck");
 
-      if (!emailjs) {
-        console.error("[EmailJS] SDK not found on window. Make sure the CDN script is loaded in index.html");
-        throw new Error("EmailJS SDK not loaded");
+      if (botcheck) {
+        console.warn("[Web3Forms] Honeypot triggered.");
+        setStatus({ type: "error", message: "Something went wrong. Please try again." });
+        return;
       }
 
-      if (!EMAILJS_SERVICE_ID || !EMAILJS_TEMPLATE_ID) {
-        console.error("[EmailJS] Missing Service ID or Template ID from env");
-        throw new Error("EmailJS IDs not configured");
+      submissionData.set("name", trimmedName);
+      submissionData.set("email", trimmedEmail.toLowerCase());
+      submissionData.set("message", trimmedMessage);
+      submissionData.set("subject", `New Portfolio Contact - ${trimmedName}`);
+      submissionData.set("access_key", process.env.WEB3FORMS_ACCESS_KEY);
+
+      const response = await fetch(process.env.WEB3FORMS_ENDPOINT,{
+        method: "POST",
+        body: submissionData,
+        headers: {
+          Accept: "application/json",
+        },
+      });
+
+      const result = await response.json();
+
+      if (!response.ok || result.success === false) {
+        const errorMessage = result.message || "Failed to send message. Please try again later.";
+        throw new Error(errorMessage);
       }
 
-      // Send the form using EmailJS sendForm API
-      // This sends all inputs with name attributes in the form
-      await emailjs.sendForm(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, formRef.current);
-
-      console.log("[EmailJS] Message sent successfully", {
-        name: formData.name,
-        email: formData.email,
+      console.log("[Web3Forms] Message sent successfully", {
+        name: trimmedName,
+        email: trimmedEmail,
         phone: formData.phone,
       });
 
-      toast({
-        title: "Your message has been sent successfully! I'll get back to you soon.",
-      });
+      const successMessage = "Your message has been sent successfully! I'll get back to you soon.";
+      setStatus({ type: "success", message: successMessage });
+      toast({ title: successMessage });
 
-      // Clear form UI and state
-      setFormData({ name: "", email: "", phone: "", message: "" });
-      if (formRef.current) {
-        formRef.current.reset();
-      }
+      setFormData(initialFormState);
+      formRef.current.reset();
     } catch (error) {
-      console.error("[EmailJS] Failed to send message", error);
-      toast({
-        title: "Failed to send message. Please try again later.",
-      });
+      console.error("[Web3Forms] Failed to send message", error);
+      const message =
+        error instanceof Error ? error.message : "Failed to send message. Please try again later.";
+      setStatus({ type: "error", message });
+      toast({ title: message });
     } finally {
       setIsSubmitting(false);
     }
@@ -157,7 +182,27 @@ const Contact = () => {
             </div>
 
             <Card className="md:col-span-2 p-10 bg-white border border-border animate-fade-in rounded-xl shadow-sm">
-              <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
+              <form
+                ref={formRef}
+                onSubmit={handleSubmit}
+                action={WEB3FORMS_ENDPOINT}
+                method="POST"
+                className="space-y-6"
+              >
+                <input type="hidden" name="access_key" value={WEB3FORMS_ACCESS_KEY} />
+                <input type="hidden" name="subject" value={`New Portfolio Contact - ${formData.name || "Visitor"}`} />
+                <div className="hidden" aria-hidden="true">
+                  <label htmlFor="botcheck" className="sr-only">
+                    Leave this field blank
+                  </label>
+                  <input
+                    id="botcheck"
+                    name="botcheck"
+                    type="checkbox"
+                    tabIndex={-1}
+                    autoComplete="off"
+                  />
+                </div>
                 <div className="grid sm:grid-cols-2 gap-6">
                   <div>
                     <label htmlFor="name" className="block text-base font-medium text-foreground mb-2">
@@ -226,9 +271,13 @@ const Contact = () => {
                   type="submit"
                   disabled={isSubmitting}
                   className="w-full bg-primary text-primary-foreground hover:bg-primary/90 py-6 text-lg rounded-lg shadow-md hover:shadow-lg transition-all hover:scale-[1.02]"
+                  aria-busy={isSubmitting}
                 >
                   {isSubmitting ? (
-                    "Sending..."
+                    <span className="flex items-center justify-center gap-2">
+                      <Loader2 className="h-5 w-5 animate-spin" aria-hidden="true" />
+                      Sending...
+                    </span>
                   ) : (
                     <>
                       Send Message
@@ -236,6 +285,19 @@ const Contact = () => {
                     </>
                   )}
                 </Button>
+                <div aria-live="polite">
+                  {status.type !== "idle" && (
+                    <div
+                      className={`rounded-lg border px-4 py-3 text-sm transition-all duration-200 ${
+                        status.type === "success"
+                          ? "border-emerald-200 bg-emerald-50 text-emerald-700"
+                          : "border-destructive/40 bg-destructive/10 text-destructive"
+                      }`}
+                    >
+                      {status.message}
+                    </div>
+                  )}
+                </div>
               </form>
             </Card>
           </div>
