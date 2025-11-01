@@ -114,24 +114,24 @@ const Projects = () => {
   };
 
   return (
-    <section id="projects" className="py-24 bg-background">
+    <section id="projects" className="py-32 bg-white">
       <div className="container mx-auto px-6">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-16 animate-fade-in">
-            <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-20 animate-fade-in">
+            <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
               Featured Projects
             </h2>
-            <div className="w-20 h-1 bg-primary mx-auto mb-6"></div>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+            <div className="w-16 h-1 bg-primary mx-auto rounded-full mb-6"></div>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
               Real-world solutions delivering measurable business results
             </p>
           </div>
 
-          <div className="space-y-6">
+          <div className="space-y-8">
             {projects.map((project, index) => (
               <Card
                 key={index}
-                className="p-6 md:p-8 bg-card border-border hover:border-primary transition-all duration-300 animate-fade-in"
+                className="p-8 md:p-10 bg-white border border-border hover:border-primary/50 transition-all duration-300 animate-fade-in hover:shadow-card rounded-xl"
                 style={{ animationDelay: `${index * 100}ms` }}
               >
                 <div className="space-y-4">
@@ -196,15 +196,15 @@ const Projects = () => {
                   <Button
                     variant="ghost"
                     onClick={() => toggleProject(index)}
-                    className="w-full mt-2 text-primary hover:text-primary/80 hover:bg-primary/10"
+                    className="w-full mt-4 text-primary hover:text-primary/80 hover:bg-primary/5 rounded-lg py-6"
                   >
                     {expandedProject === index ? (
                       <>
-                        Show Less <ChevronUp className="ml-2" size={16} />
+                        Show Less <ChevronUp className="ml-2" size={18} />
                       </>
                     ) : (
                       <>
-                        View Details <ChevronDown className="ml-2" size={16} />
+                        View Details <ChevronDown className="ml-2" size={18} />
                       </>
                     )}
                   </Button>

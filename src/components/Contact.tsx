@@ -92,31 +92,31 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact" className="py-24 bg-gradient-dark">
+    <section id="contact" className="py-32 bg-white">
       <div className="container mx-auto px-6">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-16 animate-fade-in">
-            <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-20 animate-fade-in">
+            <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
               Let's Build Something Great Together
             </h2>
-            <div className="w-20 h-1 bg-primary mx-auto mb-6"></div>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+            <div className="w-16 h-1 bg-primary mx-auto rounded-full mb-6"></div>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
               Ready to start your next project? Get in touch and let's discuss how I can help
             </p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
             <div className="space-y-6 animate-slide-in-right">
-              <Card className="p-6 bg-card border-border hover:border-primary transition-all duration-300">
+              <Card className="p-8 bg-white border border-border hover:border-primary/50 hover:shadow-card transition-all duration-300 rounded-xl">
                 <div className="flex items-start gap-4">
-                  <div className="p-3 bg-primary/10 rounded-lg">
-                    <Mail className="text-primary" size={24} />
+                  <div className="p-4 bg-primary/5 rounded-xl">
+                    <Mail className="text-primary" size={28} />
                   </div>
                   <div>
                     <h3 className="text-lg font-semibold text-foreground mb-2">Email</h3>
                     <a
                       href="mailto:sagarkaushikme@gmail.com"
-                      className="text-muted-foreground hover:text-primary transition-colors"
+                      className="text-muted-foreground hover:text-primary transition-colors text-base"
                     >
                       sagarkaushikme@gmail.com
                     </a>
@@ -124,16 +124,16 @@ const Contact = () => {
                 </div>
               </Card>
 
-              <Card className="p-6 bg-card border-border hover:border-primary transition-all duration-300">
+              <Card className="p-8 bg-white border border-border hover:border-primary/50 hover:shadow-card transition-all duration-300 rounded-xl">
                 <div className="flex items-start gap-4">
-                  <div className="p-3 bg-primary/10 rounded-lg">
-                    <Phone className="text-primary" size={24} />
+                  <div className="p-4 bg-primary/5 rounded-xl">
+                    <Phone className="text-primary" size={28} />
                   </div>
                   <div>
                     <h3 className="text-lg font-semibold text-foreground mb-2">Phone</h3>
                     <a
                       href="tel:+918287752676"
-                      className="text-muted-foreground hover:text-primary transition-colors"
+                      className="text-muted-foreground hover:text-primary transition-colors text-base"
                     >
                       +91 8287752676
                     </a>
@@ -141,14 +141,14 @@ const Contact = () => {
                 </div>
               </Card>
 
-              <Card className="p-6 bg-card border-border hover:border-primary transition-all duration-300">
+              <Card className="p-8 bg-white border border-border hover:border-primary/50 hover:shadow-card transition-all duration-300 rounded-xl">
                 <div className="flex items-start gap-4">
-                  <div className="p-3 bg-primary/10 rounded-lg">
-                    <MapPin className="text-primary" size={24} />
+                  <div className="p-4 bg-primary/5 rounded-xl">
+                    <MapPin className="text-primary" size={28} />
                   </div>
                   <div>
                     <h3 className="text-lg font-semibold text-foreground mb-2">Location</h3>
-                    <p className="text-muted-foreground">
+                    <p className="text-muted-foreground text-base">
                       India (Serving global clients)
                     </p>
                   </div>
@@ -156,11 +156,11 @@ const Contact = () => {
               </Card>
             </div>
 
-            <Card className="md:col-span-2 p-8 bg-card border-border animate-fade-in">
+            <Card className="md:col-span-2 p-10 bg-white border border-border animate-fade-in rounded-xl shadow-sm">
               <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid sm:grid-cols-2 gap-6">
                   <div>
-                    <label htmlFor="name" className="block text-sm font-medium text-foreground mb-2">
+                    <label htmlFor="name" className="block text-base font-medium text-foreground mb-2">
                       Your Name *
                     </label>
                     <Input
@@ -171,11 +171,11 @@ const Contact = () => {
                       value={formData.name}
                       onChange={handleChange}
                       placeholder="John Doe"
-                      className="bg-background border-border focus:border-primary"
+                      className="bg-background border-border focus:border-primary h-12 text-base rounded-lg"
                     />
                   </div>
                   <div>
-                    <label htmlFor="email" className="block text-sm font-medium text-foreground mb-2">
+                    <label htmlFor="email" className="block text-base font-medium text-foreground mb-2">
                       Email Address *
                     </label>
                     <Input
@@ -186,13 +186,13 @@ const Contact = () => {
                       value={formData.email}
                       onChange={handleChange}
                       placeholder="john@example.com"
-                      className="bg-background border-border focus:border-primary"
+                      className="bg-background border-border focus:border-primary h-12 text-base rounded-lg"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label htmlFor="phone" className="block text-sm font-medium text-foreground mb-2">
+                  <label htmlFor="phone" className="block text-base font-medium text-foreground mb-2">
                     Phone Number (Optional)
                   </label>
                   <Input
@@ -202,12 +202,12 @@ const Contact = () => {
                     value={formData.phone}
                     onChange={handleChange}
                     placeholder="+1 (555) 000-0000"
-                    className="bg-background border-border focus:border-primary"
+                    className="bg-background border-border focus:border-primary h-12 text-base rounded-lg"
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="message" className="block text-sm font-medium text-foreground mb-2">
+                  <label htmlFor="message" className="block text-base font-medium text-foreground mb-2">
                     Project Description *
                   </label>
                   <Textarea
@@ -218,14 +218,14 @@ const Contact = () => {
                     onChange={handleChange}
                     placeholder="Tell me about your project, timeline, and requirements..."
                     rows={6}
-                    className="bg-background border-border focus:border-primary resize-none"
+                    className="bg-background border-border focus:border-primary resize-none text-base rounded-lg"
                   />
                 </div>
 
                 <Button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full bg-primary text-primary-foreground hover:bg-primary/90 py-6 text-lg"
+                  className="w-full bg-primary text-primary-foreground hover:bg-primary/90 py-6 text-lg rounded-lg shadow-md hover:shadow-lg transition-all hover:scale-[1.02]"
                 >
                   {isSubmitting ? (
                     "Sending..."
