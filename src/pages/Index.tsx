@@ -1,26 +1,30 @@
 import Navigation from "@/components/Navigation";
 import Hero from "@/components/Hero";
-import About from "@/components/About";
-import Skills from "@/components/Skills";
-import Projects from "@/components/Projects";
+import PainSection from "@/components/PainSection";
+import Services from "@/components/Services";
+import FeaturedProject from "@/components/FeaturedProject";
+import TechStack from "@/components/TechStack";
 import Process from "@/components/Process";
-import WhyHireMe from "@/components/WhyHireMe";
-import BugFixesFeatures from "@/components/BugFixesFeatures";
+import SocialProof from "@/components/SocialProof";
+import Niches from "@/components/Niches";
+import FinalCTA from "@/components/FinalCTA";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-white text-foreground">
+    <div className="min-h-screen bg-[#0A0A0F] text-white">
       <Navigation />
       <main>
         <Hero />
-        <About />
-        <Skills />
-        <Projects />
+        <PainSection />
+        <Services />
+        <FeaturedProject />
+        <TechStack />
         <Process />
-        <WhyHireMe />
-        <BugFixesFeatures />
+        <SocialProof />
+        <Niches />
+        <FinalCTA />
         <Contact />
       </main>
       <Footer />

@@ -1,6 +1,6 @@
-import { ArrowRight, BriefcaseBusiness, FolderGit2, Github, Linkedin, Mail, ShieldCheck } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import professionalHeadshot from "@/assets/professional-headshot.jpg";
+import { ArrowRight, ChevronDown } from "lucide-react";
+import { openCalendly } from "@/components/Navigation";
+import tradelensaiDashboard from "@/assets/tradelensai-dashboard.png";
 
 const Hero = () => {
   const scrollToSection = (id: string) => {
@@ -13,153 +13,151 @@ const Hero = () => {
   return (
     <section
       id="hero"
-      className="relative overflow-hidden bg-gradient-subtle py-28 sm:py-32"
+      className="relative min-h-screen flex items-center overflow-hidden bg-[#0A0A0F] grid-bg pt-20 pb-32"
     >
+      {/* Background glows */}
       <div className="pointer-events-none absolute inset-0 -z-10">
-        <div className="absolute left-[-10%] top-[-15%] h-[420px] w-[420px] rounded-full bg-primary/10 blur-3xl" />
-        <div className="absolute bottom-[-20%] right-[-15%] h-[520px] w-[520px] rounded-full bg-primary/10 blur-[180px]" />
-        <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-white" />
+        <div className="hero-glow w-[600px] h-[600px] left-[-15%] top-[-20%] bg-[#6366F1] opacity-[0.12]" />
+        <div className="hero-glow w-[500px] h-[500px] right-[-10%] bottom-[-15%] bg-[#10B981] opacity-[0.08]" />
+        <div className="hero-glow w-[300px] h-[300px] left-[40%] top-[30%] bg-[#6366F1] opacity-[0.06]" />
       </div>
 
       <div className="container mx-auto px-6">
-        <div className="mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:gap-20">
-          {/* Content column */}
-          <div className="space-y-10 text-center lg:text-left">
-            <div className="inline-flex items-center gap-3 rounded-full border border-primary/20 bg-white/80 px-4 py-2 text-sm font-medium text-primary shadow-sm backdrop-blur-sm">
-              <span className="h-2 w-2 rounded-full bg-primary" aria-hidden="true" />
-              Available for new projects worldwide
+        <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
+          {/* Left — Content */}
+          <div className="space-y-8 animate-fade-in-left">
+            {/* Available badge */}
+            <div className="available-badge w-fit">
+              <span className="green-dot" />
+              Currently available for new projects
             </div>
 
-            <div className="space-y-6">
-              <h1 className="text-4xl font-bold tracking-tight text-foreground md:text-5xl lg:text-6xl">
-                Building dependable <span className="text-primary">full-stack platforms</span>
+            {/* Headline */}
+            <div className="space-y-4">
+              <h1 className="text-4xl sm:text-5xl lg:text-[3.5rem] xl:text-6xl font-bold leading-[1.1] tracking-tight text-white">
+                I build{" "}
+                <span className="gradient-text">AI systems</span>{" "}
+                that automate your{" "}
+                <span className="gradient-text">business workflows.</span>
               </h1>
-              <p className="text-lg font-medium text-primary md:text-xl">
-                TypeScript • React • Node.js • AWS
+
+              <p className="text-[#94A3B8] text-base sm:text-lg leading-relaxed">
+                <span className="text-[#A5B4FC] font-medium">Chatbots · AI Agents · LLM Integrations · FinTech Tools</span>
+                <br />
+                <span className="font-mono text-sm text-[#64748B]">GPT-4 · LangChain · RAG · Python · React</span>
               </p>
-              <p className="mx-auto max-w-2xl text-base leading-[1.75] text-muted-foreground md:text-lg">
-                I craft production-grade web applications for startups and enterprises—covering elegant frontends, resilient APIs, and cloud infrastructure engineered for scale.
-              </p>
-            </div>
 
-            <div className="flex flex-col gap-4 pt-4 sm:flex-row sm:items-center sm:justify-center lg:justify-start">
-              <Button
-                onClick={() => scrollToSection("contact")}
-                size="lg"
-                className="h-14 rounded-xl px-8 text-base font-semibold shadow-md transition-all duration-200 hover:-translate-y-0.5 hover:shadow-hover"
-              >
-                Let's Work Together
-                <ArrowRight className="ml-2 size-5" aria-hidden="true" />
-              </Button>
-              <Button
-                onClick={() => scrollToSection("projects")}
-                size="lg"
-                variant="outline"
-                className="h-14 rounded-xl border-2 border-primary/20 px-8 text-base font-semibold text-foreground transition-all duration-200 hover:border-primary hover:bg-primary/5"
-              >
-                View My Work
-              </Button>
-            </div>
-
-            <div className="flex flex-col gap-6 pt-6 sm:flex-row sm:items-center sm:justify-center lg:justify-start">
-              <a
-                href="mailto:sagarkaushikme@gmail.com"
-                className="group inline-flex items-center gap-3 text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
-                aria-label="Email Sagar Kaushik"
-              >
-                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-primary transition-transform duration-200 group-hover:scale-105">
-                  <Mail className="size-5" aria-hidden="true" />
-                </div>
-                sagarkaushikme@gmail.com
-              </a>
-              <div className="h-px w-full bg-border sm:hidden" role="presentation" />
-              <div className="flex items-center gap-3 text-sm text-muted-foreground">
-                <ShieldCheck className="size-5 text-primary" aria-hidden="true" />
-                <span>Trusted by startups & enterprises</span>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 gap-4 pt-8 sm:grid-cols-3 sm:gap-6">
-              <div className="rounded-xl border border-border bg-white/80 px-6 py-5 text-left shadow-sm backdrop-blur-sm">
-                <BriefcaseBusiness className="mb-3 size-6 text-primary" aria-hidden="true" />
-                <p className="text-2xl font-bold text-foreground">2.5+</p>
-                <p className="text-sm text-muted-foreground">Years experience delivering high-impact products</p>
-              </div>
-              <div className="rounded-xl border border-border bg-white/80 px-6 py-5 text-left shadow-sm backdrop-blur-sm">
-                <FolderGit2 className="mb-3 size-6 text-primary" aria-hidden="true" />
-                <p className="text-2xl font-bold text-foreground">20+</p>
-                <p className="text-sm text-muted-foreground">Product releases shipped end-to-end</p>
-              </div>
-              <div className="rounded-xl border border-border bg-white/80 px-6 py-5 text-left shadow-sm backdrop-blur-sm">
-                <ShieldCheck className="mb-3 size-6 text-primary" aria-hidden="true" />
-                <p className="text-2xl font-bold text-foreground">99.9%</p>
-                <p className="text-sm text-muted-foreground">Reliability across mission-critical systems</p>
-              </div>
-            </div>
-          </div>
-
-          {/* Visual column */}
-          <div className="relative mx-auto flex w-full max-w-md justify-center lg:max-w-xl">
-            <div className="relative flex w-full max-w-sm flex-col items-center">
-              <div className="relative aspect-[4/5] w-full overflow-hidden rounded-[42px] border border-white/40 bg-white/70 shadow-[0_30px_80px_rgba(39,82,165,0.18)] ring-1 ring-white/60">
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-primary/5 to-slate-900/40 opacity-80" aria-hidden="true" />
-                <img
-                  src={professionalHeadshot}
-                  alt="Sagar Kaushik, full-stack developer"
-                  className="h-full w-full object-cover object-center"
-                  loading="eager"
-                />
-                <div className="pointer-events-none absolute inset-0 rounded-[42px] ring-1 ring-white/50" aria-hidden="true" />
-
-                <div className="absolute inset-x-6 bottom-6 flex items-center justify-between rounded-[28px] border border-white/15 bg-slate-900/85 px-6 py-4 text-white shadow-[0_16px_40px_rgba(15,23,42,0.35)] backdrop-blur">
-                  {[Github, Linkedin, Mail].map((Icon, index) => (
-                    <div
-                      key={index}
-                      className="flex h-11 w-11 items-center justify-center rounded-2xl bg-white/10 text-white transition-transform duration-200 hover:scale-105"
-                    >
-                      <Icon className="size-5" aria-hidden="true" />
+              {/* Social proof */}
+              <div className="flex items-center gap-3 pt-2">
+                <div className="flex -space-x-2">
+                  {["🇺🇸", "🇬🇧", "🇮🇳"].map((flag, i) => (
+                    <div key={i} className="w-8 h-8 rounded-full bg-[#13131A] border-2 border-[#1E1E2E] flex items-center justify-center text-sm">
+                      {flag}
                     </div>
                   ))}
                 </div>
+                <p className="text-[#64748B] text-sm">
+                  Shipped{" "}
+                  <a
+                    href="https://tradelensai.in"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[#A5B4FC] font-semibold hover:text-[#6366F1] transition-colors"
+                  >
+                    TradeLensAI
+                  </a>
+                  {" "}— used by traders
+                </p>
+              </div>
+            </div>
+
+            {/* CTAs */}
+            <div className="flex flex-col sm:flex-row gap-4">
+              <button
+                id="hero-book-call"
+                onClick={openCalendly}
+                className="group inline-flex items-center justify-center gap-2 bg-[#10B981] text-white px-8 py-4 rounded-xl text-base font-semibold glow-pulse hover:bg-[#0EA472] transition-all hover:-translate-y-0.5"
+              >
+                Book a Free 15-min Call
+                <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+              </button>
+
+              <button
+                id="hero-see-work"
+                onClick={() => scrollToSection("featured-project")}
+                className="inline-flex items-center justify-center gap-2 border border-[#1E1E2E] text-white px-8 py-4 rounded-xl text-base font-semibold hover:border-[#6366F1]/40 hover:bg-[#6366F1]/5 transition-all hover:-translate-y-0.5"
+              >
+                See My Work
+                <ChevronDown size={18} />
+              </button>
+            </div>
+
+            {/* Trust line */}
+            <p className="text-[#475569] text-sm flex items-center gap-2">
+              <span className="text-[#10B981]">✓</span> No long contracts · Fixed-price delivery · Full docs included
+            </p>
+          </div>
+
+          {/* Right — Code Snippet Visual */}
+          <div className="relative animate-fade-in-right hidden lg:block">
+            <div className="relative">
+              {/* Glow behind window */}
+              <div className="absolute inset-0 bg-[#6366F1]/20 rounded-2xl blur-2xl scale-95" />
+
+              {/* Mac Window UI */}
+              <div className="relative rounded-2xl overflow-hidden border border-[#1E1E2E] shadow-[0_40px_100px_rgba(0,0,0,0.6)] bg-[#0D0D14] flex flex-col font-mono text-sm">
+                {/* Top bar */}
+                <div className="bg-[#13131A] px-4 py-3 flex items-center gap-2 border-b border-[#1E1E2E]">
+                  <div className="flex gap-1.5">
+                    <div className="w-3 h-3 rounded-full bg-[#EF4444]" />
+                    <div className="w-3 h-3 rounded-full bg-[#F59E0B]" />
+                    <div className="w-3 h-3 rounded-full bg-[#10B981]" />
+                  </div>
+                  <div className="flex-1 text-center text-[#64748B] text-xs font-medium font-sans">
+                    ai_orchestrator.py
+                  </div>
+                  <div className="w-12" /> {/* Spacer to balance */}
+                </div>
+
+                {/* Code body */}
+                <div className="p-7 text-[#A5B4FC] leading-loose whitespace-pre overflow-x-auto text-[13px]">
+<span className="text-[#F472B6]">from</span> langchain.agents <span className="text-[#F472B6]">import</span> initialize_agent<br/>
+<span className="text-[#F472B6]">from</span> tools <span className="text-[#F472B6]">import</span> MarketAnalyzer, SupportBot<br/>
+<br/>
+<span className="text-[#F472B6]">def</span> <span className="text-[#60A5FA]">deploy_ai_system</span>(client_reqs):<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;agent = initialize_agent(<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tools=[MarketAnalyzer(), SupportBot()],<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;llm=<span className="text-[#10B981]">"gpt-4-turbo"</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;memory=<span className="text-[#F472B6]">True</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span className="text-[#F472B6]">return</span> agent.deploy(auto_scale=<span className="text-[#F472B6]">True</span>)<br/>
+<br/>
+<span className="text-[#64748B]"># Status: Online & Automating Workflows 🟢</span>
+                </div>
               </div>
 
-              <div className="relative -mt-8 w-[260px] sm:w-[320px]">
-                <div className="absolute inset-0 rounded-3xl bg-primary/15 blur-xl" aria-hidden="true" />
-                <div className="relative flex items-center gap-3 rounded-3xl border border-border bg-white/95 px-5 py-4 text-left text-foreground shadow-lg backdrop-blur">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/12 text-primary">
-                    <ShieldCheck className="size-5" aria-hidden="true" />
-                  </div>
-                  <div>
-                    <p className="text-sm font-semibold">Instant Response - Available 24/7</p>
-                    <p className="text-xs text-muted-foreground">Quick Solutions - Quick turnaround</p>
-                  </div>
+              {/* Floating badge */}
+              <div className="absolute -bottom-5 -left-5 glass-card rounded-xl px-4 py-3 flex items-center gap-3 shadow-lg">
+                <div className="w-10 h-10 bg-[#6366F1]/10 rounded-lg flex items-center justify-center">
+                  <span className="text-xl">⚡</span>
+                </div>
+                <div>
+                  <p className="text-white text-sm font-semibold">System Deployed</p>
+                  <p className="text-[#6366F1] text-xs">0 latency • 100% automated</p>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2">
-        <button
-          onClick={() => scrollToSection("about")}
-          className="flex h-12 w-12 items-center justify-center rounded-full border border-border bg-white/80 text-muted-foreground shadow-sm transition-all duration-200 hover:-translate-y-1 hover:text-primary"
-          aria-label="Scroll down"
-        >
-          <svg
-            className="h-5 w-5"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M19 9l-7 7-7-7"
-            />
-          </svg>
-        </button>
+        {/* Scroll indicator */}
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-2 text-[#475569]">
+          <span className="text-xs">scroll down</span>
+          <div className="w-5 h-8 border border-[#1E1E2E] rounded-full flex items-center justify-center">
+            <div className="w-1 h-2 bg-[#6366F1] rounded-full animate-bounce" />
+          </div>
+        </div>
       </div>
     </section>
   );

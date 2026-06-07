@@ -1,107 +1,105 @@
-import { Card } from "@/components/ui/card";
-import { FileSearch, Layout, Code, TestTube, Rocket, Activity } from "lucide-react";
+import { openCalendly } from "@/components/Navigation";
+
+const steps = [
+  {
+    number: "01",
+    icon: "📞",
+    title: "Discovery Call",
+    subtitle: "Free · 15 minutes",
+    description:
+      "We talk about your problem, your current workflow, and what AI can automate. I'll suggest the best solution — no sales pitch.",
+  },
+  {
+    number: "02",
+    icon: "📋",
+    title: "Proposal & Scope",
+    subtitle: "Clear timeline · Fixed price",
+    description:
+      "You receive a detailed scope document: what I'll build, how long it'll take, and the exact cost. No surprises, ever.",
+  },
+  {
+    number: "03",
+    icon: "🛠",
+    title: "Build & Update",
+    subtitle: "Daily progress updates",
+    description:
+      "I build with daily or every-other-day progress updates. You see what's happening at every step — no black box.",
+  },
+  {
+    number: "04",
+    icon: "🚀",
+    title: "Deliver & Handoff",
+    subtitle: "Full docs + walkthrough call",
+    description:
+      "Deployed, documented, and fully handed off. I walk you through the system so your team can own it going forward.",
+  },
+];
 
 const Process = () => {
-  const steps = [
-    {
-      icon: FileSearch,
-      title: "Requirement Analysis & Architecture Planning",
-      description: "Deep dive into requirements, define technical specifications, and design scalable architecture",
-    },
-    {
-      icon: Layout,
-      title: "API Design & Database Schema",
-      description: "Design RESTful APIs, plan database schema with optimization in mind, and document endpoints",
-    },
-    {
-      icon: Code,
-      title: "Implementation with Clean Code Practices",
-      description: "Write maintainable TypeScript code, follow SOLID principles, and implement comprehensive error handling",
-    },
-    {
-      icon: TestTube,
-      title: "Testing (Unit, Integration, E2E)",
-      description: "Thorough testing at all levels to ensure reliability, catch edge cases, and prevent regressions",
-    },
-    {
-      icon: Rocket,
-      title: "Deployment & DevOps Setup",
-      description: "Deploy to AWS with CI/CD pipelines, configure monitoring, and set up automated scaling",
-    },
-    {
-      icon: Activity,
-      title: "Monitoring & Continuous Optimization",
-      description: "CloudWatch monitoring, performance optimization, and proactive issue resolution",
-    },
-  ];
-
   return (
-    <section id="process" className="py-32 bg-gradient-section">
+    <section id="process" className="py-28 bg-[#0D0D14] relative">
+      <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-[#6366F1]/20 to-transparent" />
+
       <div className="container mx-auto px-6">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-20 animate-fade-in">
-            <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
-              How I Work
+        <div className="max-w-5xl mx-auto">
+          {/* Header */}
+          <div className="text-center mb-16">
+            <p className="text-[#6366F1] text-sm font-semibold uppercase tracking-widest mb-4">
+              Process
+            </p>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4">
+              How a project works
             </h2>
-            <div className="w-16 h-1 bg-primary mx-auto rounded-full mb-6"></div>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-              A proven development process focused on reliability, scalability, and maintainability
+            <p className="text-[#64748B] text-lg max-w-2xl mx-auto">
+              Simple, transparent, and collaborative — from first call to final delivery.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {steps.map((step, index) => (
-              <Card
-                key={index}
-                className="p-8 bg-white border border-border hover:border-primary/50 transition-all duration-300 hover:shadow-card animate-scale-in rounded-xl"
-                style={{ animationDelay: `${index * 100}ms` }}
-              >
-                <div className="flex flex-col h-full">
-                  <div className="flex items-center gap-4 mb-5">
-                    <div className="p-4 bg-primary/5 rounded-xl">
-                      <step.icon className="text-primary" size={28} />
-                    </div>
-                    <div className="text-3xl font-bold text-primary">
-                      {String(index + 1).padStart(2, '0')}
+          {/* Steps */}
+          <div className="relative">
+            {/* Vertical connector line (desktop) */}
+            <div className="hidden lg:block absolute left-[2.35rem] top-12 bottom-12 w-px bg-gradient-to-b from-[#6366F1]/40 via-[#6366F1]/20 to-transparent" />
+
+            <div className="space-y-6">
+              {steps.map((step, index) => (
+                <div
+                  key={index}
+                  className="flex gap-6 animate-fade-in glass-card glass-card-hover rounded-2xl p-6 lg:p-7"
+                  style={{ animationDelay: `${index * 150}ms` }}
+                >
+                  {/* Step number bubble */}
+                  <div className="flex-shrink-0">
+                    <div className="w-12 h-12 rounded-xl bg-[#6366F1]/10 border border-[#6366F1]/30 flex items-center justify-center">
+                      <span className="text-xl">{step.icon}</span>
                     </div>
                   </div>
-                  <h3 className="text-xl font-semibold text-foreground mb-3 leading-snug">
-                    {step.title}
-                  </h3>
-                  <p className="text-muted-foreground leading-relaxed">
-                    {step.description}
-                  </p>
+
+                  {/* Content */}
+                  <div className="flex-1">
+                    <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3 mb-2">
+                      <span className="text-[#6366F1] text-xs font-mono font-semibold">
+                        {step.number}
+                      </span>
+                      <h3 className="text-white font-bold text-lg">{step.title}</h3>
+                      <span className="hidden sm:block text-[#1E1E2E]">·</span>
+                      <span className="text-[#10B981] text-sm font-medium">{step.subtitle}</span>
+                    </div>
+                    <p className="text-[#64748B] text-sm leading-relaxed">{step.description}</p>
+                  </div>
                 </div>
-              </Card>
-            ))}
+              ))}
+            </div>
           </div>
 
-          <div className="mt-20 text-center">
-            <Card className="p-12 bg-white border border-border max-w-5xl mx-auto animate-fade-in rounded-xl shadow-sm">
-              <h3 className="text-3xl font-bold text-foreground mb-8">
-                Why This Process Works
-              </h3>
-              <div className="grid sm:grid-cols-3 gap-10 text-left">
-                <div>
-                  <div className="text-primary font-bold text-2xl mb-3">Reliability</div>
-                  <p className="text-base text-muted-foreground leading-relaxed">
-                    Comprehensive testing and monitoring ensure 99.9%+ uptime
-                  </p>
-                </div>
-                <div>
-                  <div className="text-primary font-bold text-2xl mb-3">Scalability</div>
-                  <p className="text-base text-muted-foreground leading-relaxed">
-                    Architecture designed to handle growth from day one
-                  </p>
-                </div>
-                <div>
-                  <div className="text-primary font-bold text-2xl mb-3">Maintainability</div>
-                  <p className="text-base text-muted-foreground leading-relaxed">
-                    Clean code and documentation for easy future updates
-                  </p>
-                </div>
-              </div>
-            </Card>
+          {/* CTA */}
+          <div className="text-center mt-12">
+            <button
+              id="process-book-call"
+              onClick={openCalendly}
+              className="inline-flex items-center gap-2 border border-[#6366F1]/40 text-[#A5B4FC] px-7 py-3.5 rounded-xl font-medium hover:bg-[#6366F1]/5 hover:border-[#6366F1]/60 transition-all"
+            >
+              📞 Start with a free discovery call
+            </button>
           </div>
         </div>
       </div>
