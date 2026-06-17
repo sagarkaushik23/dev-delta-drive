@@ -72,6 +72,7 @@ const FeaturedProject = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 id="featured-project-link"
+                aria-label="View TradeLensAI live product in a new tab"
                 className="inline-flex items-center gap-2 bg-white text-[#0A0A0F] px-7 py-3.5 rounded-xl font-semibold hover:bg-[#F1F5F9] transition-all hover:-translate-y-0.5 hover:shadow-lg"
               >
                 View Live Product

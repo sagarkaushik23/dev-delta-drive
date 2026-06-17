@@ -75,6 +75,7 @@ const Hero = () => {
             <div className="flex flex-col sm:flex-row gap-4">
               <button
                 id="hero-book-call"
+                aria-label="Book a free 15-minute call"
                 onClick={openCalendly}
                 className="group inline-flex items-center justify-center gap-2 bg-[#10B981] text-white px-8 py-4 rounded-xl text-base font-semibold glow-pulse hover:bg-[#0EA472] transition-all hover:-translate-y-0.5"
               >
@@ -84,6 +85,7 @@ const Hero = () => {
 
               <button
                 id="hero-see-work"
+                aria-label="Scroll down to see my featured work"
                 onClick={() => scrollToSection("featured-project")}
                 className="inline-flex items-center justify-center gap-2 border border-[#1E1E2E] text-white px-8 py-4 rounded-xl text-base font-semibold hover:border-[#6366F1]/40 hover:bg-[#6366F1]/5 transition-all hover:-translate-y-0.5"
               >

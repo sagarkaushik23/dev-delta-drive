@@ -35,11 +35,57 @@
 
   <!-- Calendly Widget -->
   <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
-  <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
+  <!-- JSON-LD Structured Data for SEO -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Person",
+          "@id": "https://sagarkaushik.com/#person",
+          "name": "Sagar Kaushik",
+          "url": "https://sagarkaushik.com",
+          "jobTitle": "Freelance AI Engineer",
+          "worksFor": {
+            "@type": "Organization",
+            "name": "Self-Employed"
+          },
+          "knowsAbout": ["Artificial Intelligence", "AI Chatbots", "LangChain", "GPT-4", "React", "Python", "TradeLensAI"],
+          "sameAs": [
+            "https://twitter.com/sagarkaushik",
+            "https://linkedin.com/in/sagarkaushik"
+          ]
+        },
+        {
+          "@type": "ProfessionalService",
+          "@id": "https://sagarkaushik.com/#service",
+          "name": "Sagar Kaushik - AI Engineering Services",
+          "url": "https://sagarkaushik.com",
+          "description": "Custom AI Chatbots, Autonomous Agents, and FinTech AI Tools.",
+          "provider": {"@id": "https://sagarkaushik.com/#person"}
+        }
+      ]
+    }
+  </script>
 </head>
 
 <body>
-  <div id="root"></div>
+  <div id="root">
+    <!-- Static Fallback for SEO Crawlers -->
+    <div style="display:none;" aria-hidden="true">
+      <h1>Sagar Kaushik | Top Freelance AI Engineer</h1>
+      <p>Hire top freelance AI Engineer Sagar Kaushik. I build custom AI Chatbots, Autonomous Agents, and FinTech AI Tools powered by GPT-4, LangChain & RAG.</p>
+      <h2>Services Provided</h2>
+      <ul>
+        <li>Custom AI Chatbots & Customer Support Bots</li>
+        <li>Autonomous AI Agents & Workflows</li>
+        <li>LLM Integrations (OpenAI GPT-4, Claude, Gemini)</li>
+        <li>FinTech AI & Trading Analytics (TradeLensAI)</li>
+      </ul>
+      <h2>Technologies</h2>
+      <p>Python, React, Vite, Node.js, LangChain, PostgreSQL, RAG.</p>
+    </div>
+  </div>
   <script type="module" src="/src/main.tsx"></script>
 </body>
 

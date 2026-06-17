@@ -126,6 +126,7 @@ const Services = () => {
             <p className="text-[#64748B] text-sm mb-4">Not sure which service fits your needs?</p>
             <button
               id="services-book-call"
+              aria-label="Book a free 15-minute call to discuss services"
               onClick={openCalendly}
               className="inline-flex items-center gap-2 bg-[#6366F1] text-white px-8 py-4 rounded-xl font-semibold hover:bg-[#5558E8] transition-all hover:-translate-y-0.5 hover:shadow-[0_0_30px_rgba(99,102,241,0.3)]"
             >
